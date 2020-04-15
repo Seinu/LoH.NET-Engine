@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoHEngine.Characters;
 
 namespace LoHEngine.Skills
 {
@@ -34,5 +35,4 @@ namespace LoHEngine.Skills
             return power;
         }
     }
-
 }

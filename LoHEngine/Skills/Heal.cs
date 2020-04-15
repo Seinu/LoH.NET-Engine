@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoHEngine.Characters;
 
 namespace LoHEngine.Skills
 {
@@ -14,7 +15,7 @@ namespace LoHEngine.Skills
             base.power = 30;
             base.magicCost = 3;
         }
-
+        
         public override int SpellCast(Character Caster)
         {
             Console.WriteLine("{0} casts heal,", Caster.Identifier);

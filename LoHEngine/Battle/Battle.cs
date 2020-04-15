@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Characters;
 
 namespace LoHEngine.Battle
 {

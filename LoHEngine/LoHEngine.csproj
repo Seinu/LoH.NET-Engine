@@ -48,11 +48,10 @@
     <Compile Include="Battle\Battle.cs" />
     <Compile Include="Battle\BattleHelper.cs" />
     <Compile Include="Characters\Enemies\Barbarian.cs" />
-    <Compile Include="Characters\Enemies\Enemy.cs" />
     <Compile Include="Characters\Enemies\GiantSpider.cs" />
     <Compile Include="Characters\Enemies\mage.cs" />
     <Compile Include="Characters\Enemies\Spider.cs" />
-    <Compile Include="Characters\PlayerChars\Character.cs" />
+    <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\PlayerChars\Hero.cs" />
     <Compile Include="Data\DataHandler.cs" />
     <Compile Include="LevelHandler\Aging.cs" />

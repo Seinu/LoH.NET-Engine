@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using LoHEngine.Characters.PlayerChars;
 
 namespace LoHEngine.Data
 {
@@ -16,11 +18,11 @@ namespace LoHEngine.Data
 
         public void Save(Hero hero)
         {
-            if (Directory.Exists(@"c:\LoH") == false)
+            if (Directory.Exists(@".\Characters") == false)
             {
-                Directory.CreateDirectory(@"c:\LoH");
+                Directory.CreateDirectory(@".\Characters");
             }
-            StreamWriter file = new StreamWriter(@"c:\LoH\" + hero.Identifier + ".dat");
+            StreamWriter file = new StreamWriter(@".\Characters\" + hero.Identifier + ".dat");
             // Order is HP, Stam, Mana, Str, Int, Dex, Speed, Luck, Def, Resist, Will
             file.WriteLine(hero.Identifier);
             file.WriteLine(hero.isGM);

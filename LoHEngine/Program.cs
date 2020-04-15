@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoHEngine.MainGame;
 
 namespace LoHEngine
 {
@@ -9,7 +10,7 @@ namespace LoHEngine
     {
         static void Main(string[] args)
         {
-            MainGame maingame = new MainGame();
+            LoHEngine.MainGame.MainGame maingame = new LoHEngine.MainGame.MainGame();
         }
     }
 }

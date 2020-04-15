@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+/*
+    {
+        public int AiAttack, AiDefend, AiSpell;
+        public int EquipPow;
 
-namespace LoHEngine.Characters.PlayerChars
+
+        // Order is MaxHealth, CurrHealth, MaxMana, CurrMana, MaxStam, CurrStam, Str, Int, Dex, Speed, Luck, Defense, Magic Defense, Will*/
+namespace LoHEngine.Characters
 {
     public class Character
     {
@@ -14,12 +20,15 @@ namespace LoHEngine.Characters.PlayerChars
         public int EquipPow;
         //Bows use Str and Dex for Power Calc
         public int Str, Int, Will; // Str and Int are essentially the same except one is for magic one for melee. Will for defense calcs? Will not used currently
-        public int Luck; // Luck is broadly how lucky you are in RNG such as crit rate, drop rate, collect rate, etc
         public int Dex, Speed; // Dex is dexerity the ability to control and aim etc. Speed is how fast you can manipulate an attack object or skill.
-        public double Evade; // Evade is a combination of Dex, Luck, and Speed and how well you can evade an attack
-        public double Power; // Power is end calculation of all damage stats
+        public int Luck; // Luck is broadly how lucky you are in RNG such as crit rate, drop rate, collect rate, etc
         public int Resistance; // also known as magic defense
         public int Defense;
+        
+        
+        public double Evade; // Evade is a combination of Dex, Luck, and Speed and how well you can evade an attack
+        public double Power; // Power is end calculation of all damage stats
+        
         public int Experience, Level, Gold, BankGold, SkillPoint;
         public int MinDamage, MaxDamage;
         public int GoldDropMin, GoldDropMax;

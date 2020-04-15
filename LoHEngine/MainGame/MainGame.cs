@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LoHEngine.Characters;
+using LoHEngine.Characters.Enemies;
+using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Data;
+using LoHEngine.Locations;
 
 namespace LoHEngine.MainGame
 {
@@ -10,10 +15,10 @@ namespace LoHEngine.MainGame
         List<Character> Monster;
         DataHandler data = new DataHandler();
         Hero hero;
-        Battle battle;
+        LoHEngine.Battle.Battle battle;
         string answer;
         Random rand;
-        LevelHandler lvlhandler = new LevelHandler();
+        LoHEngine.LevelHandler.LevelHandler lvlhandler = new LoHEngine.LevelHandler.LevelHandler();
         bool DidLvl;
         GM gmcp;
 
@@ -144,7 +149,7 @@ _________________________");
                             done = Console.ReadLine();
                         }
                         while (done == "Y" || done == "y");
-                        battle = new Battle(hero, Monster);
+                        battle = new LoHEngine.Battle.Battle(hero, Monster);
 
                         if (hero.CurrentHealth < 0.01)
                         {
