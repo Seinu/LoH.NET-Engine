@@ -5,7 +5,9 @@ using System.Text;
 
 namespace LoHEngine.Weapons
 {
-    class Fang : BaseWeapon
+    public class BaseWeapon
     {
+        public int WeaponPower, WeaponCrit;
+        public string WeaponElement, WeaponEffect;
     }
 }

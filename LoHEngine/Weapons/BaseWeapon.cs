@@ -7,7 +7,13 @@ namespace LoHEngine.Weapons
 {
     public class BaseWeapon
     {
-        public int WeaponPower, WeaponCrit;
-        public string WeaponElement, WeaponEffect;
+        public string Identifier { get; set; }
+        public int WeaponPower { get; set; }
+
+        public int WeaponCrit { get; set; }
+        public string WeaponElement { get; set; }
+
+        public string WeaponEffect { get; set; }
     }
+
 }
