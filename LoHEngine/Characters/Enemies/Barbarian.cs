@@ -13,25 +13,30 @@ namespace LoHEngine.Characters.Enemies
             base.AiDefend = 101;
             base.AiSpell = 0;
 
-            base.CurrentHealth = 55;
-            base.MaxHealth = 55;
-            base.CurrentMana = 28;
-            base.MaxMana = 28;
-            base.CurrentStamina = 43;
-            base.MaxStamina = 43;
-            base.Defense = 5;
-            base.Str = 36;
-            base.Int = 11;
-            base.Dex = 23;
-            base.Will = 35;
-            base.Luck = 17;
+            base.CurrentHealth = 22;
+            base.MaxHealth = 22;
+            base.CurrentMana = 0;
+            base.MaxMana = 0;
+            base.CurrentStamina = 25;
+            base.MaxStamina = 25;
+
+            //Main Stats
+            base.Str = 10;
+            base.Int = 0;
+            base.Dex = 3;
+            base.Luck = 2;
+            base.Speed = 5;
+            base.Defense = 2;
+            base.Resistance = 0;
+
             base.Experience = 80;
             base.GoldDropMin = 30;
             base.GoldDropMax = 160;
             base.Identifier = "Barbarian";
             base.isAlive = true;
-            base.MaxDamage = (int)(base.Str / 1.5);
-            base.MinDamage = (int)(base.Str / 3);
+
+            base.MaxDamage = (int)(base.Power / 1.5);
+            base.MinDamage = (int)(base.Power / 3);
         }
 
         public override string AI()

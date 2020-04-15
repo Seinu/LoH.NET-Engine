@@ -17,6 +17,7 @@ namespace LoHEngine.Characters
         protected int AiAttack, AiDefend, AiSpell;
         public double MaxHealth, MaxMana, MaxStamina;
         public double CurrentHealth, CurrentMana, CurrentStamina;
+        public string Equip;
         public int EquipPow;
         //Bows use Str and Dex for Power Calc
         public int Str, Int, Will; // Str and Int are essentially the same except one is for magic one for melee. Will for defense calcs? Will not used currently
@@ -45,8 +46,8 @@ namespace LoHEngine.Characters
         public string Identifier;
         public int RebirthCount, lvlTotal, Age;
         public bool isFreeRB, isCorrectAge;
-        public int[] GrowthArr = new int[11];
-        //public int HPGrowth, StrGrowth, IntGrowth, LuckGrowth, SpGrowth, DexGrowth, DefGrowth, ResGrowth;
+        public int HPGrowth, MPGrowth, StamGrowth, StrGrowth, IntGrowth, LuckGrowth, SpeedGrowth, DexGrowth, DefGrowth, ResGrowth, WillGrowth;
+        public double CritRate;
 
 
 

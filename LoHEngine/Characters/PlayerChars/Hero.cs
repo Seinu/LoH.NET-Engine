@@ -48,17 +48,17 @@ namespace LoHEngine.Characters.PlayerChars
 
 
             // Order is HP, Stam, Mana, Str, Int, Dex, Speed, Luck, Def, Resist, Will
-            hero.GrowthArr[0] = 80;
-            hero.GrowthArr[1] = 65;
-            hero.GrowthArr[2] = 65;
-            hero.GrowthArr[3] = 65;
-            hero.GrowthArr[4] = 25;
-            hero.GrowthArr[5] = 45;
-            hero.GrowthArr[6] = 40;
-            hero.GrowthArr[7] = 35;
-            hero.GrowthArr[8] = 55;
-            hero.GrowthArr[9] = 35;
-            hero.GrowthArr[10] = 0;
+            hero.HPGrowth = 80;
+            hero.MPGrowth = 65;
+            hero.StamGrowth = 65;
+            hero.StrGrowth = 65;
+            hero.IntGrowth = 25;
+            hero.DexGrowth = 45;
+            hero.SpeedGrowth = 40;
+            hero.LuckGrowth = 35;
+            hero.DefGrowth = 55;
+            hero.ResGrowth = 35;
+            hero.WillGrowth = 0;
             //    65, 25, 45, 40, 35, 55, 35};
             /*
             hero.HPGrowth = 75;

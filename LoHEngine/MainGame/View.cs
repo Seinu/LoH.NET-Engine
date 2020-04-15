@@ -16,27 +16,29 @@ Name: {0}
 Hitpoints:  {1}/{2}
 Mana:       {3}/{4}
 Stamina:    {5}/{6}
-Defense:      {7}
-Strength:     {8}
-Intelligence: {9}
-Dexterity:    {10}
-Will:         {11}
-Luck:         {12}
-Level:        {13}
-Age:          {14}
-SkillPoints:  {15}
-Experience:   {16}
-Gold:         {17}
+Strength:     {7}
+Intelligence: {8}
+Dexterity:    {9}
+Speed:        {10}
+Luck:         {11}
+Def:          {12}
+Res:          {13}
+Level:        {14}
+Age:          {15}
+SkillPoints:  {16}
+Experience:   {17}
+Gold:         {18}
 Items:", hero.Identifier,
        hero.CurrentHealth, hero.MaxHealth,
        hero.CurrentMana, hero.MaxMana,
        hero.CurrentStamina, hero.MaxStamina,
-       hero.Defense,
        hero.Str,
        hero.Int,
        hero.Dex,
-       hero.Will,
+       hero.Speed,
        hero.Luck,
+       hero.Defense,
+       hero.Resistance,
        hero.Level,
        hero.Age,
        hero.SkillPoint,

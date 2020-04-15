@@ -26,52 +26,52 @@ namespace LoHEngine.LevelHandler
             //refactor into an array loop
             // Order is HP, Stam, Mana, Str, Int, Dex, Speed, Luck, Def, Resist, Will
             int rng = rand.Next(101);
-            if (rng < hero.GrowthArr[0])
+            if (rng < hero.HPGrowth)
             {
                 hero.MaxHealth++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[1])
-            {
-                hero.MaxStamina++;
-            }
-            rng = rand.Next(101);
-            if (rng < hero.GrowthArr[2])
+            if (rng < hero.MPGrowth)
             {
                 hero.MaxMana++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[3])
+            if (rng < hero.StamGrowth)
+            {
+                hero.MaxStamina++;
+            }
+            rng = rand.Next(101);
+            if (rng < hero.StrGrowth)
             {
                 hero.Str++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[4])
+            if (rng < hero.IntGrowth)
             {
                 hero.Int++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[5])
+            if (rng < hero.DexGrowth)
             {
                 hero.Dex++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[6])
+            if (rng < hero.SpeedGrowth)
             {
                 hero.Speed++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[7])
+            if (rng < hero.LuckGrowth)
             {
                 hero.Luck++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[8])
+            if (rng < hero.DefGrowth)
             {
                 hero.Defense++;
             }
             rng = rand.Next(101);
-            if (rng < hero.GrowthArr[9])
+            if (rng < hero.ResGrowth)
             {
                 hero.Resistance++;
             }

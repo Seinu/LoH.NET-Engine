@@ -27,6 +27,7 @@ namespace LoHEngine.MainGame
             Console.WriteLine("Welcome to the arena!");
             hero = new Hero();
             Hero.Initialize(hero);
+            //Heroes = new List<Hero>();
             Monster = new List<Character>();
             BasicGameLoop();
         }
