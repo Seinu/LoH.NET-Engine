@@ -54,12 +54,21 @@
   <ItemGroup>
     <Compile Include="Battle\Battle.cs" />
     <Compile Include="Battle\BattleHelper.cs" />
+    <Compile Include="Battle\DoBattle.cs" />
+    <Compile Include="Battle\EngageBattle.cs" />
+    <Compile Include="Battle\InitBattle.cs" />
+    <Compile Include="Battle\Standby.cs" />
+    <Compile Include="Characters\BaseCharacter.cs" />
     <Compile Include="Characters\Enemies\Barbarian.cs" />
+    <Compile Include="Characters\Enemies\Enemy.cs" />
     <Compile Include="Characters\Enemies\GiantSpider.cs" />
     <Compile Include="Characters\Enemies\mage.cs" />
+    <Compile Include="Characters\Enemies\Skeleton.cs" />
     <Compile Include="Characters\Enemies\Spider.cs" />
     <Compile Include="Characters\Character.cs" />
+    <Compile Include="Characters\PlayerChars\Dummy.cs" />
     <Compile Include="Characters\PlayerChars\Hero.cs" />
+    <Compile Include="Characters\PlayerChars\Xero.cs" />
     <Compile Include="Data\DataHandler.cs" />
     <Compile Include="LevelHandler\Aging.cs" />
     <Compile Include="LevelHandler\LevelHandler.cs" />
@@ -75,10 +84,9 @@
     <Compile Include="Skills\Heal.cs" />
     <Compile Include="Skills\Icebolt.cs" />
     <Compile Include="Skills\Spell.cs" />
-    <Compile Include="Weapons\BaseWeapon.cs" />
-    <Compile Include="Weapons\Fang.cs" />
-    <Compile Include="Weapons\IronAxe.cs" />
-    <Compile Include="Weapons\SharpFang.cs" />
+    <Compile Include="Weapons\Axe.cs" />
+    <Compile Include="Weapons\Weapon.cs" />
+    <Compile Include="Weapons\Dummy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Characters\NPCs\" />

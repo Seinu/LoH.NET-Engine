@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Characters;
 
 namespace LoHEngine.Locations
 {
-    public class Inn
+    class Inn
     {
         /// <summary>
         /// Here is our inn, which gives our hero a chance to rest
         /// </summary>
         /// <param name="hero">Our current hero</param>
-        public static void Sleep(Hero hero)
+        public static void Sleep(BaseCharacter hero, List<BaseCharacter> Party)
         {
             string answer = "";
             Console.Clear();
@@ -34,9 +34,14 @@ namespace LoHEngine.Locations
                         {
                             hero.Gold -= 8;
                             Console.WriteLine("Alright, enjoy your stay");
-                            hero.CurrentHealth = hero.MaxHealth;
-                            hero.CurrentMana = hero.MaxMana;
-                            hero.CurrentStamina = hero.MaxStamina;
+
+                            foreach (BaseCharacter partymember in Party)
+                            {
+                                partymember.CurrHP = partymember.MaxHP;
+                                partymember.CurrMP = partymember.MaxMP;
+                                partymember.CurrSP = partymember.MaxSP;
+                            }
+                                
                         }
                         else
                         {

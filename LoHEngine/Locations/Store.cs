@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Characters;
 
 namespace LoHEngine.Locations
 {
@@ -19,13 +19,13 @@ namespace LoHEngine.Locations
         const string boots = "Boots";
         const string sword = "Sword";
         string choice = "";
-        public Store(Hero hero)
+        public Store(BaseCharacter hero)
         {
             Console.Clear();
             Console.WriteLine("Welcome to the store!");
             StoreLoop(hero);
         }
-        public void StoreLoop(Hero hero)
+        public void StoreLoop(BaseCharacter hero)
         {
             do
             {
@@ -43,7 +43,7 @@ namespace LoHEngine.Locations
                 choice = Console.ReadLine();
                 switch (choice)
                 {
-                    case "S":
+                    /*case "S":
                     case "s":
                         checkitem = hero.CheckItems(sword);
                         if (checkitem == false)
@@ -152,7 +152,7 @@ namespace LoHEngine.Locations
                         {
                             Console.WriteLine("You've already got that!");
                         }
-                        break;
+                        break;*/
                     case "D":
                     case "d":
                         Console.WriteLine("Goodbye, and be careful out there!");

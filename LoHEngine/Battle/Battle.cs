@@ -14,56 +14,89 @@ namespace LoHEngine.Battle
         string monsterchoice;
         string monsterspellchoice;
         int targetmonster;
-        bool amonsterleft;
+        bool amonsterleft, apmemberleft;
         int TotalExp;
 
-        public Battle(Hero hero, List<Character> monsters)
+        public Battle(List<BaseCharacter> party, List<BaseCharacter> monsters)
         {
-            hero.Power = hero.EquipPow + (int)(hero.Str / 1);
-            hero.MaxDamage = (int)(hero.Power / 1.5);
-            hero.MinDamage = (int)(hero.Power / 3);
-            Console.Clear();
-            Console.WriteLine("{0} is facing:", hero.Identifier);
-            foreach (Character monster in monsters)
+
+            foreach (BaseCharacter pmember in party)
             {
-                Console.WriteLine("{0}", monster.Identifier);
+                var weaponname = pmember.EquipWeapon.Name;
+                pmember.Power = (pmember.EquipWeapon.WeaponPower + pmember.Str / 1);
+                pmember.MaxDamage = (int)(pmember.Power / 1.5);
+                pmember.MinDamage = (int)(pmember.Power / 3);
+                pmember.CritRate = (pmember.Dex + pmember.Speed) / 2;
+
+            }
+
+            foreach (BaseCharacter pmember in monsters)
+            {
+                pmember.Power = (pmember.EquipWeapon.WeaponPower + pmember.Str / 1);
+                pmember.MaxDamage = (int)(pmember.Power / 1.5);
+                pmember.MinDamage = (int)(pmember.Power / 3);
+                pmember.CritRate = (pmember.Dex + pmember.Speed) / 2;
+
+            }
+            Console.Clear();
+            Console.WriteLine("Party: ");
+            foreach (BaseCharacter pmember in party)
+            {
+                Console.WriteLine("{0}", pmember.Name);
+
+            }
+            Console.WriteLine("Is Facing:");
+            foreach (BaseCharacter monster in monsters)
+            {
+                Console.WriteLine("{0}", monster.Name);
             }
             Console.ReadLine();
             Console.Clear();
-            BattleLoop(hero, monsters);
+            //EngageBattle(party, monsters);
+            BattleLoop(party, monsters);
         }
-        public void BattleLoop(Hero hero, List<Character> monsters)
+        public void BattleLoop(List<BaseCharacter> party, List<BaseCharacter> monsters)
         {
+            var asdf = party.Count;
             do
             {
-                BattleHelper.PrintStatus(hero);
-                foreach (Character monster in monsters)
+                foreach (BaseCharacter pmember in party)
                 {
-                    if (monster.isAlive)
+                    if (pmember.IsAlive)
+                        BattleHelper.PrintStatus(pmember);
+                    else
+                        Console.WriteLine(pmember + " Is Dead");
+                }
+                foreach (BaseCharacter monster in monsters)
+                {
+                    if (monster.IsAlive)
                         BattleHelper.PrintStatus(monster);
                 }
                 userchoice = BattleHelper.PrintChoice();
 
-                Console.WriteLine();
-                BattleHelper.CheckDefence(userchoice, hero);
-                if (userchoice == "s" || userchoice == "S")
+                foreach (BaseCharacter hero in party)
                 {
-                    userspellchoice = BattleHelper.PrintSpells();
+                    Console.WriteLine();
+                    BattleHelper.CheckDefence(userchoice, hero);
+                    if (userchoice == "s" || userchoice == "S")
+                    {
+                        userspellchoice = BattleHelper.PrintSpells();
+                    }
+                    else if (userchoice == "f" || userchoice == "F")
+                    {
+                        Console.WriteLine("You have fled");
+                        Console.WriteLine("Press any key to continue");
+                        hero.fled = true;
+                        continue;
+                    }
+                    targetmonster = BattleHelper.ChooseTarget(monsters);
+                    BattleHelper.ProcessChoice(userchoice, hero, monsters[targetmonster], userspellchoice, monsters, party);
                 }
-                else if (userchoice == "f" || userchoice == "F")
-                {
-                    Console.WriteLine("You have fled");
-                    Console.WriteLine("Press any key to continue");
-                    hero.fled = true;
-                    continue;
-                }
-                targetmonster = BattleHelper.ChooseTarget(monsters);
-                BattleHelper.ProcessChoice(userchoice, hero, monsters[targetmonster], userspellchoice, monsters);
 
-                foreach (Character monster in monsters)
+                foreach (BaseCharacter monster in monsters)
                 {
-                    monster.isAlive = BattleHelper.CheckHealth(monster.CurrentHealth);
-                    if (monster.isAlive == true)
+                    monster.IsAlive = BattleHelper.CheckHealth(monster.CurrHP);
+                    if (monster.IsAlive == true)
                     {
                         monsterchoice = monster.AI();
                         BattleHelper.CheckDefence(monsterchoice, monster);
@@ -72,7 +105,19 @@ namespace LoHEngine.Battle
                             monsterspellchoice = monster.SpellAI();
                         }
 
-                        BattleHelper.ProcessChoice(monsterchoice, monster, hero, monsterspellchoice, monsters);
+                        Random rand = new Random();
+                        BattleHelper.ProcessChoice(monsterchoice, monster, party[rand.Next(party.Count)], monsterspellchoice, monsters, party);
+                        
+                        /*
+                        for (int i = 0; i < party.Count; i++)
+                        {
+                            Random rand = new Random();
+                            if (rand.Next(101) > 50)
+                            {
+                                BattleHelper.ProcessChoice(monsterchoice, monster, party[i], monsterspellchoice, monsters, party);
+                                break;
+                            }
+                        }*/
                     }
                     /*else if (monster.isAlive == false)
                     {
@@ -81,14 +126,15 @@ namespace LoHEngine.Battle
                     }*/
                 }
                 amonsterleft = BattleHelper.CheckMonsters(monsters);
+                apmemberleft = BattleHelper.CheckMonsters(party);
                 Console.WriteLine("Press enter to continue.....");
                 Console.ReadLine();
                 Console.Clear();
             }
-            while (hero.isAlive == true && amonsterleft == true);
-            foreach (Character monster in monsters)
+            while (party[0].IsAlive == true && amonsterleft == true);
+            foreach (BaseCharacter monster in monsters)
             {
-                TotalExp = monster.Experience + TotalExp;
+                TotalExp = monster.EXP + TotalExp;
             }
         }
     }

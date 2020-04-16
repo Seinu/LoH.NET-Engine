@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LoHEngine.Weapons
+namespace LoHEngine.Battle
 {
-    class SharpFang : BaseWeapon
+    class InitBattle
     {
     }
 }

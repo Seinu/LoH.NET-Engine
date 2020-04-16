@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Characters;
 
 namespace LoHEngine.LevelHandler
 {
@@ -21,57 +21,57 @@ namespace LoHEngine.LevelHandler
             return EP_L;
         }
 
-        protected void lvlupProc(Hero hero)
+        protected void lvlupProc(BaseCharacter hero)
         {
             //refactor into an array loop
             // Order is HP, Stam, Mana, Str, Int, Dex, Speed, Luck, Def, Resist, Will
             int rng = rand.Next(101);
-            if (rng < hero.HPGrowth)
+            if (rng < hero.GrowthHP)
             {
-                hero.MaxHealth++;
+                hero.MaxHP++;
             }
             rng = rand.Next(101);
-            if (rng < hero.MPGrowth)
+            if (rng < hero.GrowthMP)
             {
-                hero.MaxMana++;
+                hero.MaxMP++;
             }
             rng = rand.Next(101);
-            if (rng < hero.StamGrowth)
+            if (rng < hero.GrowthSP)
             {
-                hero.MaxStamina++;
+                hero.MaxSP++;
             }
             rng = rand.Next(101);
-            if (rng < hero.StrGrowth)
+            if (rng < hero.GrowthStr)
             {
                 hero.Str++;
             }
             rng = rand.Next(101);
-            if (rng < hero.IntGrowth)
+            if (rng < hero.GrowthInt)
             {
                 hero.Int++;
             }
             rng = rand.Next(101);
-            if (rng < hero.DexGrowth)
+            if (rng < hero.GrowthDex)
             {
                 hero.Dex++;
             }
             rng = rand.Next(101);
-            if (rng < hero.SpeedGrowth)
+            if (rng < hero.GrowthSpeed)
             {
                 hero.Speed++;
             }
             rng = rand.Next(101);
-            if (rng < hero.LuckGrowth)
+            if (rng < hero.GrowthLuck)
             {
                 hero.Luck++;
             }
             rng = rand.Next(101);
-            if (rng < hero.DefGrowth)
+            if (rng < hero.GrowthDefense)
             {
                 hero.Defense++;
             }
             rng = rand.Next(101);
-            if (rng < hero.ResGrowth)
+            if (rng < hero.GrowthResistance)
             {
                 hero.Resistance++;
             }
@@ -270,7 +270,7 @@ namespace LoHEngine.LevelHandler
             hero.Luck = hero.Luck + 0;
         }*/
 
-        public bool LevelUp(Hero hero)
+        public bool LevelUp(BaseCharacter hero)
         {
             /*LvlMultiplier = hero.Level + 1;
             temp1 = 4 * LvlMultiplier - 51;
@@ -279,10 +279,10 @@ namespace LoHEngine.LevelHandler
 
             do
             {
-                EP_L = ExpCalculater(hero.Level + 1);
-                if (hero.Experience >= EP_L)
+                EP_L = ExpCalculater(hero.LVL + 1);
+                if (hero.EXP >= EP_L)
                 {
-                    hero.Level++;
+                    hero.LVL++;
                     hero.SkillPoint++;
                     lvlupProc(hero);
                     /*switch (hero.Age)
@@ -336,7 +336,7 @@ namespace LoHEngine.LevelHandler
                     lvlUp = true;
                     IslvlUp = true;
                 }
-                else if (hero.Experience < EP_L)
+                else if (hero.EXP < EP_L)
                 {
                     lvlUp = false;
                 }

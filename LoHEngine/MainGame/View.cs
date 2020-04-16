@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LoHEngine.Characters.PlayerChars;
+using LoHEngine.Characters;
 
 namespace LoHEngine.MainGame
 {
-    public class View
+    class View
     {
-        public static void PrintStats(Hero hero)
+        public static void PrintStats(List<BaseCharacter> Party)
         {
-            Console.Clear();
-            Console.Write(@"
+
+            foreach (BaseCharacter partymember in Party)
+            {
+                Console.Clear();
+                Console.Write(@"
 Name: {0}
 Hitpoints:  {1}/{2}
 Mana:       {3}/{4}
@@ -24,30 +27,35 @@ Luck:         {11}
 Def:          {12}
 Res:          {13}
 Level:        {14}
-Age:          {15}
-SkillPoints:  {16}
-Experience:   {17}
-Gold:         {18}
-Items:", hero.Identifier,
-       hero.CurrentHealth, hero.MaxHealth,
-       hero.CurrentMana, hero.MaxMana,
-       hero.CurrentStamina, hero.MaxStamina,
-       hero.Str,
-       hero.Int,
-       hero.Dex,
-       hero.Speed,
-       hero.Luck,
-       hero.Defense,
-       hero.Resistance,
-       hero.Level,
-       hero.Age,
-       hero.SkillPoint,
-       hero.Experience,
-       hero.Gold);
-            foreach (string item in hero.items)
-            {
-                Console.WriteLine(item);
+SkillPoints:  {15}
+Experience:   {16}
+Gold:         {17}
+Items:", partymember.Name,
+       partymember.CurrHP, partymember.MaxHP,
+       partymember.CurrMP, partymember.MaxMP,
+       partymember.CurrSP, partymember.MaxSP,
+       partymember.Str,
+       partymember.Int,
+       partymember.Dex,
+       partymember.Speed,
+       partymember.Luck,
+       partymember.Defense,
+       partymember.Resistance,
+       partymember.LVL,
+       //partymember.Age,
+       partymember.SkillPoint,
+       partymember.EXP,
+       partymember.Gold);
+                /*foreach (string item in hero.items)
+                {
+                    Console.WriteLine(item);
+                }*/
+                Console.WriteLine();
+                Console.WriteLine("Press enter for next party member....");
+                Console.ReadLine();
+                Console.Clear();
             }
+
             Console.WriteLine();
             Console.WriteLine("Press enter to continue....");
             Console.ReadLine();

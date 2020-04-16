@@ -12,33 +12,41 @@ namespace LoHEngine.MainGame
 {
     class MainGame
     {
-        List<Character> Monster;
+        List<BaseCharacter> Monster;
+        List<BaseCharacter> Party;
         DataHandler data = new DataHandler();
-        Hero hero;
-        LoHEngine.Battle.Battle battle;
+        Xero hero;
+        Battle.Battle battle;
+        //Battle.Standby standby;
         string answer;
         Random rand;
         LoHEngine.LevelHandler.LevelHandler lvlhandler = new LoHEngine.LevelHandler.LevelHandler();
         bool DidLvl;
-        GM gmcp;
+        //GM gmcp;
 
         public MainGame()
         {
-            Console.WriteLine("Welcome to the arena!");
-            hero = new Hero();
-            Hero.Initialize(hero);
+
+            //Weapons.Axe Weapon = new Weapons.Axe();
+            //string asdf = Weapon.Name;
+            //Console.WriteLine("Welcome to the arena!");
+            hero = new Xero();
+            Xero.Init(hero);
             //Heroes = new List<Hero>();
-            Monster = new List<Character>();
+            Monster = new List<BaseCharacter>();
+            Party = new List<BaseCharacter>();
+            Party.Add(hero);
             BasicGameLoop();
+
         }
         void BasicGameLoop()
         {
             rand = new Random();
-            gmcp = new GM();
+            //gmcp = new GM();
             do
             {
                 Console.Clear();
-                if (hero.isGM == true)
+                /*if (hero.isGM == true)
                 {
                     Console.Write(@"
 What would you like to do?
@@ -48,14 +56,12 @@ _____________________________
 (I)nn
 (V)iew
 (G)ame (M)aster Control Panel
-(L)oad
-s(A)ve
 (Q)uit
 _____________________________
 F,S,I,V, GM,L,A or Q?");
                 }
                 else
-                {
+                {*/
                     Console.Write(@"
 What would you like to do?
 _____________________________
@@ -63,52 +69,26 @@ _____________________________
 (S)tore
 (I)nn
 (V)iew
-(L)oad
-s(A)ve
 (Q)uit
 _____________________________
 F,S,I,V,L,A or Q?");
-                }
+                //}
                 Console.WriteLine();
                 answer = Console.ReadLine();
                 Console.WriteLine();
                 switch (answer)
                 {
-                    case "L":
-                    case "l":
-                        data.Load(hero);
-                        break;
-                    case "A":
-                    case "a":
-                        data.Save(hero);
-                        break;
                     case "S":
                     case "s":
                         Store store = new Store(hero);
                         break;
                     case "I":
                     case "i":
-                        Inn.Sleep(hero);
+                        Inn.Sleep(hero, Party);
                         break;
                     case "v":
                     case "V":
-                        View.PrintStats(hero);
-                        break;
-                    case "gm":
-                    case "gM":
-                    case "Gm":
-                    case "GM":
-                        Console.Clear();
-                        if (hero.isGM == true)
-                        {
-                            Console.WriteLine("Welcome to the Game Master Control Panel");
-                            gmcp.ControlPanel(hero);
-                            break;
-                        }
-                        else if (hero.isGM == false)
-                        {
-                            break;
-                        }
+                        View.PrintStats(Party);
                         break;
                     case "F":
                     case "f":
@@ -118,9 +98,7 @@ F,S,I,V,L,A or Q?");
                             Console.Clear();
                             Console.Write(@"
 Which monster do you want to fight?
-(S)pider:
-(B)arbarian:
-(M)age:
+(S)keleton:
 _________________________");
 
                             Console.WriteLine();
@@ -128,72 +106,81 @@ _________________________");
 
                             if (choice == "S" || choice == "s")
                             {
-                                Monster.Add(new Spider());
+                                Skeleton skeleton;
+                                skeleton = new Skeleton();
+                                Skeleton.InitMelee(skeleton);
+                                Monster.Add(skeleton);
                             }
 
                             else if (choice == "B" || choice == "b")
                             {
-                                Monster.Add(new Barbarian());
+                                //Monster.Add(new Barbarian());
                             }
 
                             else if (choice == "M" || choice == "m")
                             {
-                                Monster.Add(new Mage());
+                                //Monster.Add(new Mage());
                             }
 
                             else
                             {
-                                Monster.Add(new Spider());
+                                //Monster.Add(new Spider());
                             }
-                            Console.WriteLine("Would you like to fight more monsters?");
+                            Console.WriteLine("Would you like to fight more monsters(y/n)?");
                             Console.WriteLine();
                             done = Console.ReadLine();
                         }
                         while (done == "Y" || done == "y");
-                        battle = new LoHEngine.Battle.Battle(hero, Monster);
-
-                        if (hero.CurrentHealth < 0.01)
+                        //standby = new LoHEngine.Battle.Standby(Party, Monster);
+                        battle = new LoHEngine.Battle.Battle(Party, Monster);
+                        foreach (BaseCharacter partymember in Party)
                         {
-                            Console.WriteLine("Your game is over!");
-                            continue;
-                        }
-                        else if (hero.fled == false)
-                        {
-                            int gold = 0;
-                            int experience = 0;
-                            foreach (Character monster in Monster)
+                            if (hero.CurrHP < 0.01)
                             {
-                                if (monster.fled == false)
-                                {
-                                    experience += monster.Experience;
-                                    gold += rand.Next(monster.GoldDropMin, monster.GoldDropMax);
-                                }
+                                Console.WriteLine(hero.Name + " Has died!");
+                                hero.IsAlive = false;
+                                continue;
                             }
-                            hero.Experience += experience;
-                            hero.Gold += gold;
-                            DidLvl = lvlhandler.LevelUp(hero);
-                            if (DidLvl == true)
+                            else if (hero.fled == false)
                             {
-                                Console.WriteLine("{0} is now level {1} and gets {2} gold and {3} experience"
-                                    , hero.Identifier, hero.Level, gold, experience);
+                                int gold = 0;
+                                int experience = 0;
+                                foreach (BaseCharacter monster in Monster)
+                                {
+                                    if (monster.fled == false)
+                                    {
+                                        experience += monster.EXP;
+                                        gold += rand.Next(monster.GoldDrop[0], monster.GoldDrop[1]);
+                                    }
+                                }
+                                partymember.EXP += experience;
+                                hero.Gold += gold;
+                                DidLvl = lvlhandler.LevelUp(partymember);
+                                if (DidLvl == true)
+                                {
+                                    Console.WriteLine("{0} is now level {1} and gets {2} gold and {3} experience"
+                                        , partymember.Name, partymember.LVL, gold, experience);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("{0} gets {1} gold and {2} experience"
+                                        , partymember.Name, gold, experience);
+                                }
+                                Monster.Clear();
+                                Console.WriteLine("Press enter to continue....");
+                                Console.ReadLine();
                             }
                             else
                             {
-                                Console.WriteLine("{0} gets {1} gold and {2} experience"
-                                    , hero.Identifier, gold, experience);
+                                partymember.fled = false;
                             }
-                            Monster.Clear();
-                            Console.WriteLine("Press enter to continue....");
-                            Console.ReadLine();
+
                         }
-                        else
-                        {
-                            hero.fled = false;
-                        }
+                        
                         break;
                     case "Q":
                     case "q":
-                        Console.WriteLine("Goodbye {0}", hero.Identifier);
+                        Console.WriteLine("Goodbye {0}", hero.Name);
                         break;
                 }
             }

@@ -46,11 +46,11 @@ namespace LoHEngine.Battle
         /// <param name="attacker">The attacking character</param>
         /// <param name="defender">The defending character</param>
         /// <returns></returns>
-        public static int DealDamage(Character attacker, Character defender)
+        public static int DealDamage(BaseCharacter attacker, BaseCharacter defender)
         {
             rand = new Random();
             damage = rand.Next(attacker.MinDamage, attacker.MaxDamage);
-            damage = damage - defender.Defense;
+            damage = (int)(damage - defender.Defense);
             if (damage < 0)
             {
                 damage = 0;
@@ -70,42 +70,42 @@ namespace LoHEngine.Battle
         /// <param name="choice"> the attackers choice</param>
         /// <param name="attacker">The active character</param>
         /// <param name="defender">The target character the attacker is attacking</param>
-        public static void ProcessChoice(string choice, Character attacker, Character defender, string spellchoice, List<Character> Monster)
+        public static void ProcessChoice(string choice, BaseCharacter attacker, BaseCharacter defender, string spellchoice, List<BaseCharacter> Monster, List<BaseCharacter> Party)
         {
             switch (choice)
             {
                 case "A":
                 case "a":
                     Console.WriteLine();
-                    Console.WriteLine("{0} attacks!", attacker.Identifier);
+                    Console.WriteLine("{0} attacks!", attacker.Name);
                     DealDamage(attacker, defender);
-                    defender.CurrentHealth -= damage;
+                    defender.CurrHP -= damage;
                     Console.WriteLine("{0} hits the {1} for {2}hp of damage"
-                        , attacker.Identifier, defender.Identifier, damage);
+                        , attacker.Name, defender.Name, damage);
                     break;
                 case "D":
                 case "d":
                     Console.WriteLine();
-                    Console.WriteLine("{0} defends!", attacker.Identifier);
+                    Console.WriteLine("{0} defends!", attacker.Name);
                     break;
                 case "F":
                 case "f":
                     Console.WriteLine();
-                    Console.WriteLine("{0} flees!", attacker.Identifier);
+                    Console.WriteLine("{0} flees!", attacker.Name);
                     attacker.fled = true;
-                    attacker.isAlive = false;
+                    attacker.IsAlive = false;
                     break;
                 case "S":
                 case "s":
                     Console.WriteLine();
-                    CastSpell(attacker, defender, spellchoice, Monster);
+                    //CastSpell(attacker, defender, spellchoice, Monster);
                     break;
                 default:
                     Console.WriteLine("I'm sorry, I didn't recognize that.");
                     Console.WriteLine();
                     choice = PrintChoice();
                     Console.WriteLine();
-                    ProcessChoice(choice, attacker, defender, spellchoice, Monster);
+                    ProcessChoice(choice, attacker, defender, spellchoice, Monster, Party);
                     break;
             }
         }
@@ -117,14 +117,17 @@ namespace LoHEngine.Battle
         /// </summary>
         /// <param name="hero">Our hero character</param>
         /// <param name="monster">the monster character</param>
-        public static void PrintStatus(Character hero)
+        public static void PrintStatus(BaseCharacter pmember)
         {
-            Console.Write(@"
+            //foreach (BaseCharacter pmember in Party)
+            //{
+                Console.Write(@"
 **********************************************
         Health/Max Health
 {0}:       {1}/{2} Health
 **********************************************
-", hero.Identifier, hero.CurrentHealth, hero.MaxHealth);
+", pmember.Name, pmember.CurrHP, pmember.MaxHP);
+            //}
         }
         #endregion
 
@@ -142,7 +145,7 @@ _____________________
 Please choose an action:
 (A)ttack:
 (D)efend:
-(S)pell:
+(S)pell: Broken
 (F)lee:
 _____________________");
             Console.WriteLine();
@@ -159,16 +162,16 @@ _____________________");
         /// </summary>
         /// <param name="choice">input the string choice to check for defence</param>
         /// <param name="attacker">input the active character we are checking</param>
-        public static void CheckDefence(string choice, Character attacker)
+        public static void CheckDefence(string choice, BaseCharacter attacker)
         {
             if (attacker.defending == true)
             {
-                attacker.increaseAttack = true;
+                //attacker.increaseAttack = true;
             }
 
             else
             {
-                attacker.increaseAttack = false;
+                //attacker.increaseAttack = false;
             }
             if (choice == "D" || choice == "d")
             {
@@ -281,12 +284,12 @@ Please choose a spell:
         /// This method makes sure at least one monster is alive to continue the battle
         /// </summary>
         /// <param name="Monsters"></param>
-        public static bool CheckMonsters(List<Character> Monsters)
+        public static bool CheckMonsters(List<BaseCharacter> Monsters)
         {
             bool foundone = false;
-            foreach (Character monster in Monsters)
+            foreach (BaseCharacter monster in Monsters)
             {
-                if (monster.isAlive)
+                if (monster.IsAlive)
                 {
                     foundone = true;
 
@@ -310,17 +313,17 @@ Please choose a spell:
         /// </summary>
         /// <param name="Monster">This is the list of monsters</param>
         /// <returns>Returns an index of the character to attack</returns>
-        public static int ChooseTarget(List<Character> Monster)
+        public static int ChooseTarget(List<BaseCharacter> Monster)
         {
             Console.WriteLine("Please choose the monster to attack");
             string choice;
             int x = 0;
-            foreach (Character monster in Monster)
+            foreach (BaseCharacter monster in Monster)
             {
                 x++;
-                if (monster.isAlive)
+                if (monster.IsAlive)
                 {
-                    Console.WriteLine("{0}: {1}", x, monster.Identifier);
+                    Console.WriteLine("{0}: {1}", x, monster.Name);
                 }
             }
             Console.WriteLine();
